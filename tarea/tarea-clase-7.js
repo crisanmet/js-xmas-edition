@@ -25,10 +25,12 @@ function validarFormulario(e) {
     "descripcion-regalo": errorRegalo,
   };
 
+  borrarErrores();
   const esExito = manejarErrores(errores) === 0;
   if (esExito) {
     $formulario.className = "oculto";
     d.querySelector("#exito").className = "";
+    redireccionar();
   }
 }
 
@@ -48,10 +50,29 @@ function manejarErrores(errores) {
       $error.innerText = error;
       $errores.appendChild($error);
     } else {
+      $formulario[llave].className = "";
     }
   });
+
   return cantidadErrores;
 }
+
+const borrarErrores = () => {
+  let $errores = d.querySelectorAll("#errores li");
+  console.log($errores);
+
+  if ($errores.length > 0) {
+    for (let i = 0; i < $errores.length; i++) {
+      $errores[i].remove();
+    }
+  }
+};
+
+const redireccionar = () => {
+  setTimeout(() => {
+    window.location.href = "wishlist.html";
+  }, 2000);
+};
 
 function validarCiudad(ciudad) {
   if (ciudad.length === 0) return "el campo ciudad no puede estar vacio";
